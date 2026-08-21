@@ -77,15 +77,25 @@
       font-size: 14px;
       opacity: 0.8;
     }
-    /* Products */
+
+    /* ===== PRODUCTS SLIDER ===== */
     .products-grid {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 32px;
+      flex-direction: row;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 8px 20px;
+      scrollbar-width: none;
+      margin-bottom: 0;
     }
-    /* Card */
+    .products-grid::-webkit-scrollbar { display: none; }
+
     .card {
+      flex: 0 0 85%;
+      scroll-snap-align: center;
       background: var(--white);
       border-radius: var(--radius);
       overflow: hidden;
@@ -94,13 +104,13 @@
       border: 1px solid var(--border);
       position: relative;
       animation: fadeInUp 0.6s ease forwards;
+      margin-bottom: 0;
     }
     .card:active { transform: scale(0.98); }
     .card:nth-child(2) { animation-delay: 0.1s; }
     .card:nth-child(3) { animation-delay: 0.2s; }
     .card-best {
       border: 3px solid var(--gold);
-      order: -1;
     }
     .best-seller-ribbon {
       position: absolute;
@@ -432,12 +442,7 @@
       .header .logo i { font-size: 32px; }
       .header p { font-size: 16px; }
       .section-title h2 { font-size: 26px; }
-      .products-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-      }
-      .card-best { order: 0; transform: scale(1.03); margin-top: -8px; }
+      .card { flex: 0 0 48%; }
       .card-image { height: 180px; }
       .card-best .card-image { height: 200px; }
       .card-body { padding: 20px; }
@@ -460,10 +465,10 @@
     <!-- Products -->
     <div class="section-title">
       <h2>🛒 باقاتنا المتاحة</h2>
-      <p>اختر الباقة المناسبة لمشروعك</p>
+      <p>اسحب يمين أو شمال للتنقل بين الباقات</p>
     </div>
 
-    <div class="products-grid">
+    <div class="products-grid" id="productsSlider">
       <!-- Card 1: MikroTik -->
       <div class="card">
         <img class="card-image" src="images/ميكروتيك.jpeg" alt="ميكروتيك + اكسس بوينت هدية">
@@ -553,6 +558,13 @@
       </div>
     </div>
 
+    <!-- Products Slider Dots -->
+    <div class="slider-dots" id="productsDots" style="margin-bottom: 32px;">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
     <!-- Cards Subscription Section -->
     <div class="delivery-section">
       <h2>📦 اشتراك الكروت الشهري</h2>
@@ -616,14 +628,36 @@
   </a>
 
   <script>
-    // Slider dots update
+    // Products slider dots update
+    const productsSlider = document.getElementById('productsSlider');
+    const productDots = document.querySelectorAll('#productsDots .dot');
+
+    productsSlider.addEventListener('scroll', () => {
+      const scrollLeft = productsSlider.scrollLeft;
+      const maxScroll = productsSlider.scrollWidth - productsSlider.clientWidth;
+      const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
+
+      productDots.forEach((dot, index) => {
+        dot.classList.remove('active');
+      });
+
+      if (progress < 0.33) {
+        productDots[0].classList.add('active');
+      } else if (progress < 0.66) {
+        productDots[1].classList.add('active');
+      } else {
+        productDots[2].classList.add('active');
+      }
+    });
+
+    // Delivery slider dots update
     const slider = document.getElementById('deliverySlider');
     const dots = document.querySelectorAll('#sliderDots .dot');
 
     slider.addEventListener('scroll', () => {
       const scrollLeft = slider.scrollLeft;
       const maxScroll = slider.scrollWidth - slider.clientWidth;
-      const progress = scrollLeft / maxScroll;
+      const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
 
       if (progress < 0.5) {
         dots[0].classList.add('active');
