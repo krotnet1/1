@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <meta name="theme-color" content="#0f172a">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>كروت نت - حلول الواي فاي الذكية</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,6 +30,7 @@
       color: var(--primary);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     .container {
       width: 100%;
@@ -39,6 +38,7 @@
       margin: 0 auto;
       padding: 16px 14px 80px;
     }
+
     /* Header */
     .header {
       text-align: center;
@@ -62,11 +62,12 @@
       line-height: 1.6;
       padding: 0 10px;
     }
+
     /* Section Title */
     .section-title {
       text-align: center;
       color: var(--white);
-      margin: 24px 0 20px;
+      margin: 24px 0 16px;
     }
     .section-title h2 {
       font-size: 22px;
@@ -76,25 +77,40 @@
     .section-title p {
       font-size: 14px;
       opacity: 0.8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .section-title p i { color: var(--gold); animation: swipeHint 2s infinite; }
+    @keyframes swipeHint {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-8px); }
     }
 
-    /* ===== PRODUCTS SLIDER ===== */
+    /* ===== PRODUCTS HORIZONTAL SLIDER ===== */
+    .products-slider-wrapper {
+      position: relative;
+      width: 100vw;
+      margin-right: calc(-50vw + 50%);
+      overflow: hidden;
+    }
     .products-grid {
       display: flex;
       flex-direction: row;
-      gap: 16px;
+      gap: 12px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      padding: 4px 8px 20px;
+      padding: 8px 16px 24px;
       scrollbar-width: none;
-      margin-bottom: 0;
+      -ms-overflow-style: none;
     }
     .products-grid::-webkit-scrollbar { display: none; }
 
     .card {
-      flex: 0 0 85%;
+      flex: 0 0 88%;
       scroll-snap-align: center;
       background: var(--white);
       border-radius: var(--radius);
@@ -104,11 +120,13 @@
       border: 1px solid var(--border);
       position: relative;
       animation: fadeInUp 0.6s ease forwards;
-      margin-bottom: 0;
     }
+    .card:first-child { margin-right: 4px; }
+    .card:last-child { margin-left: 4px; }
     .card:active { transform: scale(0.98); }
     .card:nth-child(2) { animation-delay: 0.1s; }
     .card:nth-child(3) { animation-delay: 0.2s; }
+
     .card-best {
       border: 3px solid var(--gold);
     }
@@ -128,27 +146,27 @@
     }
     .card-image {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: cover;
       display: block;
       background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
     }
-    .card-best .card-image { height: 220px; }
-    .card-body { padding: 18px 16px; }
+    .card-best .card-image { height: 200px; }
+    .card-body { padding: 16px 14px; }
     .badge-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 6px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 11px;
+      gap: 4px;
+      font-size: 10px;
       font-weight: 700;
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 20px;
       letter-spacing: 0.3px;
     }
@@ -165,47 +183,47 @@
       50% { transform: scale(1.05); }
     }
     .card-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--primary);
       margin-bottom: 4px;
     }
     .card-best .card-title { color: #b45309; }
     .card-subtitle {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--gray);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       font-weight: 500;
       line-height: 1.5;
     }
     .features {
       list-style: none;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .features li {
-      font-size: 13px;
+      font-size: 12px;
       color: #334155;
-      padding: 7px 0;
+      padding: 6px 0;
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
       border-bottom: 1px solid #f1f5f9;
       line-height: 1.6;
     }
     .features li:last-child { border-bottom: none; }
     .features li .icon {
       color: var(--gold);
-      font-size: 14px;
+      font-size: 13px;
       flex-shrink: 0;
-      margin-top: 3px;
+      margin-top: 2px;
     }
     .features li strong { color: var(--primary); font-weight: 700; }
     .price-row {
       display: flex;
       align-items: baseline;
       gap: 6px;
-      margin: 16px 0;
-      padding: 14px;
+      margin: 14px 0;
+      padding: 12px;
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       border-radius: 12px;
       justify-content: center;
@@ -213,15 +231,15 @@
     .card-best .price-row {
       background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
     }
-    .price { font-size: 30px; font-weight: 900; color: var(--white); }
-    .currency { font-size: 15px; color: rgba(255,255,255,0.9); font-weight: 600; }
+    .price { font-size: 28px; font-weight: 900; color: var(--white); }
+    .currency { font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 600; }
     .btn {
       width: 100%;
-      min-height: 52px;
-      padding: 14px 20px;
+      min-height: 48px;
+      padding: 12px 16px;
       border: none;
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -246,15 +264,29 @@
       box-shadow: 0 4px 15px rgba(245,158,11,0.3);
     }
     .btn-primary:active { transform: scale(0.97); }
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 2px solid rgba(255,255,255,0.4);
-      margin-top: 10px;
-    }
-    .btn-outline:active { background: rgba(255,255,255,0.1); }
 
-    /* ===== SLIDER SECTION ===== */
+    /* Slider Dots */
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 4px;
+      margin-bottom: 28px;
+    }
+    .slider-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: all 0.3s;
+    }
+    .slider-dots .dot.active {
+      background: var(--gold);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* Cards Subscription Section */
     .delivery-section {
       background: rgba(255,255,255,0.06);
       backdrop-filter: blur(10px);
@@ -304,7 +336,7 @@
     }
     .slider-label i { color: var(--gold); margin-left: 6px; }
 
-    /* Slider Container */
+    /* Delivery Slider */
     .slider-container {
       position: relative;
       width: 100%;
@@ -380,27 +412,6 @@
     }
     .btn-pdf:active { transform: scale(0.97); }
 
-    /* Slider Dots */
-    .slider-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 4px;
-      margin-bottom: 20px;
-    }
-    .slider-dots .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      transition: all 0.3s;
-    }
-    .slider-dots .dot.active {
-      background: var(--gold);
-      width: 24px;
-      border-radius: 4px;
-    }
-
     /* Footer */
     .footer {
       text-align: center;
@@ -434,24 +445,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Tablet & Desktop */
-    @media (min-width: 768px) {
-      .container { max-width: 900px; padding: 24px 20px 80px; }
-      .header { padding: 40px 0 30px; }
-      .header .logo { font-size: 36px; }
-      .header .logo i { font-size: 32px; }
-      .header p { font-size: 16px; }
-      .section-title h2 { font-size: 26px; }
-      .card { flex: 0 0 48%; }
-      .card-image { height: 180px; }
-      .card-best .card-image { height: 200px; }
-      .card-body { padding: 20px; }
-      .card-title { font-size: 19px; }
-      .features li { font-size: 13px; }
-      .slider-track .delivery-card { flex: 0 0 48%; scroll-snap-align: start; }
+    /* Mobile Optimizations */
+    @media (max-width: 480px) {
+      .card { flex: 0 0 85%; }
+      .card:first-child { margin-right: 8px; }
+      .card:last-child { margin-left: 8px; }
     }
   </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -465,101 +465,103 @@
     <!-- Products -->
     <div class="section-title">
       <h2>🛒 باقاتنا المتاحة</h2>
-      <p>اسحب يمين أو شمال للتنقل بين الباقات</p>
+      <p><i class="fas fa-hand-pointer"></i> اسحب يمين أو شمال للتنقل</p>
     </div>
 
-    <div class="products-grid" id="productsSlider">
-      <!-- Card 1: MikroTik -->
-      <div class="card">
-        <img class="card-image" src="images/ميكروتيك.jpeg" alt="ميكروتيك + اكسس بوينت هدية">
-        <div class="card-body">
-          <div class="badge-row">
-            <span class="badge badge-gift"><i class="fas fa-gift"></i> هدية مجانية</span>
-            <span class="badge badge-popular"><i class="fas fa-star"></i> الأقوى أداءً</span>
+    <div class="products-slider-wrapper">
+      <div class="products-grid" id="productsSlider">
+        <!-- Card 1: MikroTik -->
+        <div class="card">
+          <img class="card-image" src="images/ميكروتيك.jpeg" alt="ميكروتيك + اكسس بوينت هدية">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge badge-gift"><i class="fas fa-gift"></i> هدية مجانية</span>
+              <span class="badge badge-popular"><i class="fas fa-star"></i> الأقوى أداءً</span>
+            </div>
+            <div class="card-title">باقة ميكروتيك المتكاملة</div>
+            <div class="card-subtitle">جهاز ميكروتيك + اكسس بوينت هدية</div>
+            <ul class="features">
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> (Captive Portal) للزباين</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>50+ مستخدم</strong> في نفس الوقت</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم كامل في <strong>السرعة والوقت</strong> لكل كرت</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>اكسس بوينت هدية</strong> لتغطية أوسع</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> تركيب وتشغيل <strong>مجاني</strong></li>
+            </ul>
+            <div class="price-row">
+              <span class="price">2,500</span>
+              <span class="currency">جنيه</span>
+            </div>
+            <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20بباقة%20ميكروتيك%20المتكاملة%20(2500ج)" class="btn btn-whatsapp" target="_blank">
+              <i class="fab fa-whatsapp"></i> تواصل واتساب
+            </a>
           </div>
-          <div class="card-title">باقة ميكروتيك المتكاملة</div>
-          <div class="card-subtitle">جهاز ميكروتيك + اكسس بوينت هدية</div>
-          <ul class="features">
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> (Captive Portal) للزباين</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>50+ مستخدم</strong> في نفس الوقت</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم كامل في <strong>السرعة والوقت</strong> لكل كرت</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>اكسس بوينت هدية</strong> لتغطية أوسع</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تركيب وتشغيل <strong>مجاني</strong></li>
-          </ul>
-          <div class="price-row">
-            <span class="price">2,500</span>
-            <span class="currency">جنيه</span>
-          </div>
-          <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20بباقة%20ميكروتيك%20المتكاملة%20(2500ج)" class="btn btn-whatsapp" target="_blank">
-            <i class="fab fa-whatsapp"></i> تواصل واتساب
-          </a>
         </div>
-      </div>
 
-      <!-- Card 2: GL 7200 (BEST) -->
-      <div class="card card-best">
-        <div class="best-seller-ribbon">الأكثر مبيعاً</div>
-        <img class="card-image" src="images/Gl 7200.jpeg" alt="GL 7200 اكسس بوينت">
-        <div class="card-body">
-          <div class="badge-row">
-            <span class="badge badge-fire"><i class="fas fa-fire"></i> الأكثر استخداماً</span>
-            <span class="badge badge-popular"><i class="fas fa-crown"></i> الأفضل مبيعاً</span>
+        <!-- Card 2: GL 7200 (BEST) -->
+        <div class="card card-best">
+          <div class="best-seller-ribbon">الأكثر مبيعاً</div>
+          <img class="card-image" src="images/Gl 7200.jpeg" alt="GL 7200 اكسس بوينت">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge badge-fire"><i class="fas fa-fire"></i> الأكثر استخداماً</span>
+              <span class="badge badge-popular"><i class="fas fa-crown"></i> الأفضل مبيعاً</span>
+            </div>
+            <div class="card-title">اكسس بوينت</div>
+            <div class="card-subtitle">الجهاز الأكثر طلباً من أصحاب الكافيهات</div>
+            <ul class="features">
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> احترافية للزباين</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>30+ مستخدم</strong> في نفس الوقت</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم في <strong>السرعة والوقت</strong> لكل كرت</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>سهل التركيب</strong> ولا يحتاج خبرة</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> ضمان <strong>سنة كاملة</strong></li>
+            </ul>
+            <div class="price-row">
+              <span class="price">1,500</span>
+              <span class="currency">جنيه</span>
+            </div>
+            <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20بجهاز%20GL%207200%20(1500ج)%20-%20الأكثر%20مبيعاً" class="btn btn-whatsapp" target="_blank">
+              <i class="fab fa-whatsapp"></i> تواصل واتساب
+            </a>
           </div>
-          <div class="card-title">اكسس بوينت</div>
-          <div class="card-subtitle">الجهاز الأكثر طلباً من أصحاب الكافيهات</div>
-          <ul class="features">
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> احترافية للزباين</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>30+ مستخدم</strong> في نفس الوقت</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم في <strong>السرعة والوقت</strong> لكل كرت</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>سهل التركيب</strong> ولا يحتاج خبرة</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> ضمان <strong>سنة كاملة</strong></li>
-          </ul>
-          <div class="price-row">
-            <span class="price">1,500</span>
-            <span class="currency">جنيه</span>
-          </div>
-          <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20بجهاز%20GL%207200%20(1500ج)%20-%20الأكثر%20مبيعاً" class="btn btn-whatsapp" target="_blank">
-            <i class="fab fa-whatsapp"></i> تواصل واتساب
-          </a>
         </div>
-      </div>
 
-      <!-- Card 3: Basic -->
-      <div class="card">
-        <img class="card-image" src="images/اكسس بوينت.jpeg" alt="اكسس بوينت أساسي">
-        <div class="card-body">
-          <div class="badge-row">
-            <span class="badge badge-basic"><i class="fas fa-wallet"></i> الأقل سعراً</span>
-            <span class="badge badge-basic"><i class="fas fa-seedling"></i> مناسب للبداية</span>
+        <!-- Card 3: Basic -->
+        <div class="card">
+          <img class="card-image" src="images/اكسس بوينت.jpeg" alt="اكسس بوينت أساسي">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge badge-basic"><i class="fas fa-wallet"></i> الأقل سعراً</span>
+              <span class="badge badge-basic"><i class="fas fa-seedling"></i> مناسب للبداية</span>
+            </div>
+            <div class="card-title">اكسس بوينت</div>
+            <div class="card-subtitle">الحل الاقتصادي لأصحاب المحلات الصغيرة</div>
+            <ul class="features">
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> للزباين</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>15+ مستخدم</strong> في نفس الوقت</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم في <strong>السرعة والوقت</strong> لكل كرت</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>سعر اقتصادي</strong> للمشاريع الصغيرة</li>
+              <li><span class="icon"><i class="fas fa-check-circle"></i></span> تركيب <strong>سريع وسهل</strong></li>
+            </ul>
+            <div class="price-row">
+              <span class="price">1,000</span>
+              <span class="currency">جنيه</span>
+            </div>
+            <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20باكسس%20بوينت%20أساسي%20(1000ج)" class="btn btn-whatsapp" target="_blank">
+              <i class="fab fa-whatsapp"></i> تواصل واتساب
+            </a>
           </div>
-          <div class="card-title">اكسس بوينت</div>
-          <div class="card-subtitle">الحل الاقتصادي لأصحاب المحلات الصغيرة</div>
-          <ul class="features">
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> للزباين</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>15+ مستخدم</strong> في نفس الوقت</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم في <strong>السرعة والوقت</strong> لكل كرت</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>سعر اقتصادي</strong> للمشاريع الصغيرة</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تركيب <strong>سريع وسهل</strong></li>
-          </ul>
-          <div class="price-row">
-            <span class="price">1,000</span>
-            <span class="currency">جنيه</span>
-          </div>
-          <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20باكسس%20بوينت%20أساسي%20(1000ج)" class="btn btn-whatsapp" target="_blank">
-            <i class="fab fa-whatsapp"></i> تواصل واتساب
-          </a>
         </div>
       </div>
     </div>
 
     <!-- Products Slider Dots -->
-    <div class="slider-dots" id="productsDots" style="margin-bottom: 32px;">
+    <div class="slider-dots" id="productsDots">
       <div class="dot active"></div>
       <div class="dot"></div>
       <div class="dot"></div>
@@ -595,7 +597,6 @@
             <div class="del-icon"><i class="fas fa-file-pdf"></i></div>
             <h4>ملف PDF</h4>
             <p>ملف PDF جاهز للطباعة المباشرة على ورق الكروت. اضغط هنا لتحميل الملف.</p>
-            <!-- TODO: استبدل الرابط التالي برابط ملف PDF الحقيقي الخاص بك -->
             <a href="PDF Cards.pdf" download class="btn-small btn-pdf">
               <i class="fas fa-download"></i> تحميل الملف
             </a>
@@ -632,23 +633,25 @@
     const productsSlider = document.getElementById('productsSlider');
     const productDots = document.querySelectorAll('#productsDots .dot');
 
-    productsSlider.addEventListener('scroll', () => {
+    function updateProductDots() {
       const scrollLeft = productsSlider.scrollLeft;
       const maxScroll = productsSlider.scrollWidth - productsSlider.clientWidth;
       const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
 
-      productDots.forEach((dot, index) => {
-        dot.classList.remove('active');
-      });
+      productDots.forEach(dot => dot.classList.remove('active'));
 
-      if (progress < 0.33) {
+      if (progress < 0.25) {
         productDots[0].classList.add('active');
-      } else if (progress < 0.66) {
+      } else if (progress < 0.55) {
         productDots[1].classList.add('active');
       } else {
         productDots[2].classList.add('active');
       }
-    });
+    }
+
+    productsSlider.addEventListener('scroll', updateProductDots);
+    // Update on load
+    updateProductDots();
 
     // Delivery slider dots update
     const slider = document.getElementById('deliverySlider');
