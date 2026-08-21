@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>كروت نت - حلول الواي فاي الذكية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #3b82f6;
+      --gold: #f59e0b;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --gray: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.15);
+      --radius: 16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      min-height: 100vh;
+      color: var(--primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 16px 14px 80px;
+    }
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 24px 0 20px;
+      color: var(--white);
+    }
+    .header .logo {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header .logo i { color: var(--gold); font-size: 28px; }
+    .header .logo span { color: var(--gold); }
+    .header p {
+      font-size: 14px;
+      opacity: 0.85;
+      font-weight: 500;
+      line-height: 1.6;
+      padding: 0 10px;
+    }
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      color: var(--white);
+      margin: 24px 0 20px;
+    }
+    .section-title h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .section-title p {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    /* Products */
+    .products-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    /* Card */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s ease;
+      border: 1px solid var(--border);
+      position: relative;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .card:active { transform: scale(0.98); }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+    .card-best {
+      border: 3px solid var(--gold);
+      order: -1;
+    }
+    .best-seller-ribbon {
+      position: absolute;
+      top: 14px;
+      left: -36px;
+      background: linear-gradient(135deg, var(--gold) 0%, #d97706 100%);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 7px 40px;
+      transform: rotate(-45deg);
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(245,158,11,0.4);
+      letter-spacing: 0.5px;
+    }
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    }
+    .card-best .card-image { height: 220px; }
+    .card-body { padding: 18px 16px; }
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+    .badge-popular { background: #fef3c7; color: #92400e; }
+    .badge-gift { background: #dcfce7; color: #166534; }
+    .badge-basic { background: #f1f5f9; color: #475569; }
+    .badge-fire {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .card-best .card-title { color: #b45309; }
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .features {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+    .features li {
+      font-size: 13px;
+      color: #334155;
+      padding: 7px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border-bottom: 1px solid #f1f5f9;
+      line-height: 1.6;
+    }
+    .features li:last-child { border-bottom: none; }
+    .features li .icon {
+      color: var(--gold);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .features li strong { color: var(--primary); font-weight: 700; }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin: 16px 0;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 12px;
+      justify-content: center;
+    }
+    .card-best .price-row {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    }
+    .price { font-size: 30px; font-weight: 900; color: var(--white); }
+    .currency { font-size: 15px; color: rgba(255,255,255,0.9); font-weight: 600; }
+    .btn {
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Cairo', sans-serif;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+    }
+    .btn-whatsapp:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(37,211,102,0.3); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #d97706 100%);
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(245,158,11,0.3);
+    }
+    .btn-primary:active { transform: scale(0.97); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.4);
+      margin-top: 10px;
+    }
+    .btn-outline:active { background: rgba(255,255,255,0.1); }
+
+    /* ===== SLIDER SECTION ===== */
+    .delivery-section {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 24px 0 24px;
+      margin: 24px 0 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .delivery-section h2 {
+      color: var(--white);
+      font-size: 20px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 6px;
+      padding: 0 16px;
+    }
+    .delivery-section .sub-title {
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      padding: 0 16px;
+    }
+    .offer-box {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px 16px;
+      margin: 0 16px 20px;
+      text-align: center;
+      border: 2px solid var(--gold);
+      box-shadow: var(--shadow);
+    }
+    .offer-box .offer-title { font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+    .offer-box .offer-price { font-size: 32px; font-weight: 900; color: #b45309; margin: 6px 0; }
+    .offer-box .offer-price span { font-size: 14px; color: var(--gray); font-weight: 500; }
+    .offer-box .offer-desc { font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+
+    .slider-label {
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      padding: 0 16px;
+    }
+    .slider-label i { color: var(--gold); margin-left: 6px; }
+
+    /* Slider Container */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .slider-track {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 16px 20px;
+      scrollbar-width: none;
+    }
+    .slider-track::-webkit-scrollbar { display: none; }
+    .slider-track .delivery-card {
+      flex: 0 0 85%;
+      scroll-snap-align: center;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px 18px;
+      text-align: center;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .slider-track .delivery-card:active { transform: scale(0.97); }
+    .slider-track .delivery-card .del-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .slider-track .delivery-card h4 { font-size: 17px; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+    .slider-track .delivery-card p { font-size: 13px; color: var(--gray); margin-bottom: 14px; line-height: 1.6; }
+    .btn-small {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 46px;
+      padding: 10px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      width: 100%;
+      touch-action: manipulation;
+    }
+    .btn-site {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+    }
+    .btn-site:active { transform: scale(0.97); }
+    .btn-pdf {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+    }
+    .btn-pdf:active { transform: scale(0.97); }
+
+    /* Slider Dots */
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 4px;
+      margin-bottom: 20px;
+    }
+    .slider-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: all 0.3s;
+    }
+    .slider-dots .dot.active {
+      background: var(--gold);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 28px 0 20px;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+    .footer a { color: var(--gold); text-decoration: none; font-weight: 700; }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    .whatsapp-float:active { transform: scale(0.92); }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tablet & Desktop */
+    @media (min-width: 768px) {
+      .container { max-width: 900px; padding: 24px 20px 80px; }
+      .header { padding: 40px 0 30px; }
+      .header .logo { font-size: 36px; }
+      .header .logo i { font-size: 32px; }
+      .header p { font-size: 16px; }
+      .section-title h2 { font-size: 26px; }
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .card-best { order: 0; transform: scale(1.03); margin-top: -8px; }
+      .card-image { height: 180px; }
+      .card-best .card-image { height: 200px; }
+      .card-body { padding: 20px; }
+      .card-title { font-size: 19px; }
+      .features li { font-size: 13px; }
+      .slider-track .delivery-card { flex: 0 0 48%; scroll-snap-align: start; }
+    }
+  </style>
+<base target="_blank">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo"><i class="fas fa-wifi"></i> كروت <span>نت</span></div>
+      <p>حلول الواي فاي الذكية للكافيهات والمحلات والمولات</p>
+    </div>
+
+    <!-- Products -->
+    <div class="section-title">
+      <h2>🛒 باقاتنا المتاحة</h2>
+      <p>اختر الباقة المناسبة لمشروعك</p>
+    </div>
+
+    <div class="products-grid">
+      <!-- Card 1: MikroTik -->
+      <div class="card">
+        <img class="card-image" src="images/ميكروتيك.jpeg" alt="ميكروتيك + اكسس بوينت هدية">
+        <div class="card-body">
+          <div class="badge-row">
+            <span class="badge badge-gift"><i class="fas fa-gift"></i> هدية مجانية</span>
+            <span class="badge badge-popular"><i class="fas fa-star"></i> الأقوى أداءً</span>
+          </div>
+          <div class="card-title">باقة ميكروتيك المتكاملة</div>
+          <div class="card-subtitle">جهاز ميكروتيك + اكسس بوينت هدية</div>
+          <ul class="features">
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> (Captive Portal) للزباين</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>50+ مستخدم</strong> في نفس الوقت</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم كامل في <strong>السرعة والوقت</strong> لكل كرت</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>اكسس بوينت هدية</strong> لتغطية أوسع</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تركيب وتشغيل <strong>مجاني</strong></li>
+          </ul>
+          <div class="price-row">
+            <span class="price">2,500</span>
+            <span class="currency">جنيه</span>
+          </div>
+          <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20بباقة%20ميكروتيك%20المتكاملة%20(2500ج)" class="btn btn-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i> تواصل واتساب
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: GL 7200 (BEST) -->
+      <div class="card card-best">
+        <div class="best-seller-ribbon">الأكثر مبيعاً</div>
+        <img class="card-image" src="images/Gl 7200.jpeg" alt="GL 7200 اكسس بوينت">
+        <div class="card-body">
+          <div class="badge-row">
+            <span class="badge badge-fire"><i class="fas fa-fire"></i> الأكثر استخداماً</span>
+            <span class="badge badge-popular"><i class="fas fa-crown"></i> الأفضل مبيعاً</span>
+          </div>
+          <div class="card-title">اكسس بوينت</div>
+          <div class="card-subtitle">الجهاز الأكثر طلباً من أصحاب الكافيهات</div>
+          <ul class="features">
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> احترافية للزباين</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>30+ مستخدم</strong> في نفس الوقت</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم في <strong>السرعة والوقت</strong> لكل كرت</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>سهل التركيب</strong> ولا يحتاج خبرة</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> ضمان <strong>سنة كاملة</strong></li>
+          </ul>
+          <div class="price-row">
+            <span class="price">1,500</span>
+            <span class="currency">جنيه</span>
+          </div>
+          <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20بجهاز%20GL%207200%20(1500ج)%20-%20الأكثر%20مبيعاً" class="btn btn-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i> تواصل واتساب
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Basic -->
+      <div class="card">
+        <img class="card-image" src="images/اكسس بوينت.jpeg" alt="اكسس بوينت أساسي">
+        <div class="card-body">
+          <div class="badge-row">
+            <span class="badge badge-basic"><i class="fas fa-wallet"></i> الأقل سعراً</span>
+            <span class="badge badge-basic"><i class="fas fa-seedling"></i> مناسب للبداية</span>
+          </div>
+          <div class="card-title">اكسس بوينت</div>
+          <div class="card-subtitle">الحل الاقتصادي لأصحاب المحلات الصغيرة</div>
+          <ul class="features">
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة تسجيل دخول</strong> للزباين</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>صفحة متابعة الاستهلاك</strong> - أي كرت بيستخدم بيظهر في الموقع كل تفاصيل الاستخدام</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> دعم <strong>15+ مستخدم</strong> في نفس الوقت</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تحكم في <strong>السرعة والوقت</strong> لكل كرت</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> صلاحية الكرت <strong>6 ساعات</strong> (قابل للتعديل)</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>سعر اقتصادي</strong> للمشاريع الصغيرة</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> تركيب <strong>سريع وسهل</strong></li>
+          </ul>
+          <div class="price-row">
+            <span class="price">1,000</span>
+            <span class="currency">جنيه</span>
+          </div>
+          <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20باكسس%20بوينت%20أساسي%20(1000ج)" class="btn btn-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i> تواصل واتساب
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards Subscription Section -->
+    <div class="delivery-section">
+      <h2>📦 اشتراك الكروت الشهري</h2>
+      <p class="sub-title">مش محتاج تطبع بنفسك! بنبعتلك الكروت جاهزة كل شهر</p>
+
+      <div class="offer-box">
+        <div class="offer-title">📋 1,080 كرت واي فاي</div>
+        <div class="offer-price">350 <span>جنيه / شهرياً</span></div>
+        <div class="offer-desc">كروت جاهزة باسم الكافيه وشعاره - Password عشوائي لكل كرت</div>
+      </div>
+
+      <div class="slider-label"><i class="fas fa-hand-pointer"></i> اسحب يمين أو شمال للتنقل</div>
+
+      <div class="slider-container">
+        <div class="slider-track" id="deliverySlider">
+          <!-- Website Option -->
+          <div class="delivery-card" onclick="window.open('https://krot.pages.dev/', '_blank')">
+            <div class="del-icon"><i class="fas fa-globe"></i></div>
+            <h4>موقع إلكتروني</h4>
+            <p>كروتك على موقع خاص فيها كل الأكواد جاهزة للطباعة. اضغط هنا لفتح الموقع.</p>
+            <button class="btn-small btn-site">
+              <i class="fas fa-external-link-alt"></i> فتح الموقع
+            </button>
+          </div>
+
+          <!-- PDF Option -->
+          <div class="delivery-card">
+            <div class="del-icon"><i class="fas fa-file-pdf"></i></div>
+            <h4>ملف PDF</h4>
+            <p>ملف PDF جاهز للطباعة المباشرة على ورق الكروت. اضغط هنا لتحميل الملف.</p>
+            <!-- TODO: استبدل الرابط التالي برابط ملف PDF الحقيقي الخاص بك -->
+            <a href="PDF Cards.pdf" download class="btn-small btn-pdf">
+              <i class="fas fa-download"></i> تحميل الملف
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-dots" id="sliderDots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div style="padding: 0 16px;">
+        <a href="https://wa.me/201060487367?text=مرحباً%20أنا%20مهتم%20باشتراك%20الكروت%20الشهري%20(1080%20كرت%20بـ%20350ج)" class="btn btn-primary" target="_blank">
+          <i class="fab fa-whatsapp"></i> اشترك الآن في الكروت الشهرية
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p><i class="fab fa-whatsapp"></i> واتساب: <a href="https://wa.me/201060487367" target="_blank">0106 048 7367</a></p>
+      <p style="margin-top:6px;">© 2026 كروت نت - جميع الحقوق محفوظة</p>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/201060487367" class="whatsapp-float" target="_blank" title="تواصل عبر واتساب">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // Slider dots update
+    const slider = document.getElementById('deliverySlider');
+    const dots = document.querySelectorAll('#sliderDots .dot');
+
+    slider.addEventListener('scroll', () => {
+      const scrollLeft = slider.scrollLeft;
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      const progress = scrollLeft / maxScroll;
+
+      if (progress < 0.5) {
+        dots[0].classList.add('active');
+        dots[1].classList.remove('active');
+      } else {
+        dots[0].classList.remove('active');
+        dots[1].classList.add('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
